@@ -1,0 +1,13 @@
+# Ear Interpreter – Roadmap
+- Data channel captions (DONE)
+- Two-way mode (press-and-hold to speak back)
+- Noise suppression (RNNoise)
+- Diarization (pyannote) for per-speaker tags
+- Export/share transcript from the app
+- Auto-connect, remember server URL
+- TTS rate & pitch controls
+- GPU Whisper & larger models when available
+- Local-only offline mode
+- Log retention policy
+- Webhooks for live captions
+- Admin monitoring UI
