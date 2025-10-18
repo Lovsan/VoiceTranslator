@@ -179,3 +179,7 @@ async def offer(request: Request):
     await pc.setRemoteDescription({"type":"offer","sdp":offer_sdp})
     ans = await pc.createAnswer(); await pc.setLocalDescription(ans)
     return pc.localDescription.sdp
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8765)
