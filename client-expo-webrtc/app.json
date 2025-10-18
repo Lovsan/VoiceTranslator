@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Ear Interpreter",
+    "slug": "ear-interpreter",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b0f14"
+    },
+    "android": {
+      "package": "com.lovsan.earinterpreter",
+      "permissions": [
+        "RECORD_AUDIO",
+        "BLUETOOTH_CONNECT"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b0f14"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.lovsan.earinterpreter",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "We need microphone access to translate speech in real time.",
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "plugins": [
+      [
+        "react-native-webrtc",
+        {
+          "microphonePermission": "Enable mic for translation"
+        }
+      ]
+    ]
+  }
+}
