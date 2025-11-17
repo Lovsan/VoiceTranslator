@@ -16,7 +16,14 @@ from pydub import AudioSegment
 app = FastAPI(title="Realtime Interpreter Server (WebRTC)")
 
 WHISPER_MODEL_SIZE = os.environ.get("WHISPER_MODEL", "small")
-whisper = WhisperModel(WHISPER_MODEL_SIZE, device="cpu", compute_type="int8")
+whisper = None
+
+def get_whisper_model():
+    """Lazy load Whisper model."""
+    global whisper
+    if whisper is None:
+        whisper = WhisperModel(WHISPER_MODEL_SIZE, device="cpu", compute_type="int8")
+    return whisper
 
 MODEL_NAMES = {
     ("no", "en"): "Helsinki-NLP/opus-mt-no-en",
@@ -133,7 +140,8 @@ class Session:
             await self.process_voiced(voiced)
     async def process_voiced(self, voiced_bytes: bytes):
         f32 = to_float32(voiced_bytes)
-        segments, info = whisper.transcribe(f32, language=None, vad_filter=False, beam_size=1, condition_on_previous_text=False)
+        whisper_model = get_whisper_model()
+        segments, info = whisper_model.transcribe(f32, language=None, vad_filter=False, beam_size=1, condition_on_previous_text=False)
         text = " ".join([s.text.strip() for s in segments]).strip()
         if not text: return
         src_lang = norm_lang(info.language)
